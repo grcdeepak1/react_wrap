@@ -2,33 +2,31 @@
 from pcconfig import config
 
 import pynecone as pc
+from pynecone.event import EVENT_ARG
+from pynecone.var import Var
 
 docs_url = "https://pynecone.io/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
 
-
-class State(pc.State):
-    """The app state."""
-    pass
-
 class ColorPicker(pc.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
-    color: pc.Var[str]
+    color: Var[str]
 
     @classmethod
-    def get_controlled_triggers(cls) -> dict[str, pc.Var]:
-        return {"on_change": pc.EVENT_ARG}
+    def get_controlled_triggers(cls) -> dict[str, Var]:
+        return {
+                    "on_change": EVENT_ARG,
+                }
 
 class ColorPickerState(pc.State):
     color: str = "#db114b"
 
 def index():
-    color_picker = ColorPicker.create
     return pc.box(
         pc.vstack(
             pc.heading(ColorPickerState.color),
-            color_picker(
+            ColorPicker.create(
                 on_change=ColorPickerState.set_color
             ),
         ),
@@ -36,8 +34,7 @@ def index():
         padding="5em",
         border_radius="1em",
     )
-
 # Add state and page to the app.
-app = pc.App(state=State)
+app = pc.App(state=ColorPickerState)
 app.add_page(index)
 app.compile()
