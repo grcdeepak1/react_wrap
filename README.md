@@ -1,5 +1,5 @@
 # react_wrap
-
+```
 Error:
 >>pc run                                                            
 ──────────────────────────────────────── Starting Pynecone App ─────────────────────────────────────────
@@ -39,3 +39,4 @@ Traceback (most recent call last):
   File "/Users/xxx/Developer/pynecone/react_wrap/react_wrap/react_wrap.py", line 21, in get_controlled_triggers
     return {"on_change": pc.EVENT_ARG}
 AttributeError: module 'pynecone' has no attribute 'EVENT_ARG'
+```
